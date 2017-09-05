@@ -109,6 +109,111 @@
 	width: 92%;
 	margin: 4%;
 }
+
+/* 上传图片区域 */
+#uploadForm {
+	float: left;
+	margin: -2% 20% 5% 20%;
+}
+
+#uploadImage {
+	position: relative;
+	width: 372px;
+	height: 202px;
+	background-color: #40aff2;
+	text-align: center;
+}
+
+#uploadImage #cropimg {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;
+}
+
+#uploadImage .addImage {
+	display: inline-block;
+	position: relative;
+	min-width: 80px;
+	height: 40px;
+	overflow: hidden;
+	padding: 0 30px;
+	margin: 81px auto;
+	border: none;
+	background-color: #F3F3F3;
+	color: #555;
+	font: 14px/40px 'MicroSoft Yahei', 'Simhei';
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#uploadImage .addImage:HOVER {
+	background-color: #DEDEDE;
+}
+
+#uploadImage #imgFile
+	{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 140px;
+	height: 40px;
+	cursor: pointer;
+	cursor: hand;
+	border: none;
+	font-size: 0;
+	padding: 0;
+	/* older safari/Chrome browsers */ 
+    -webkit-opacity: 0;  
+    /* Netscape and Older than Firefox 0.9 */ 
+    -moz-opacity: 0;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/ 
+    -khtml-opacity: 0;  
+    /* IE9 + etc...modern browsers */ 
+    opacity: 0;  
+    /* IE 4-9 */ 
+    filter:alpha(opacity=0);  
+    /*This works in IE 8 & 9 too*/ 
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";  
+    /*IE4-IE9*/ 
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+
+#uploadImage #imgFile::-webkit-file-upload-button {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 140px;
+	height: 40px;
+	cursor: pointer;
+	cursor: hand;
+	border: none;
+	font-size: 0;
+	padding: 0;
+	/* older safari/Chrome browsers */ 
+    -webkit-opacity: 0;  
+    /* Netscape and Older than Firefox 0.9 */ 
+    -moz-opacity: 0;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/ 
+    -khtml-opacity: 0;  
+    /* IE9 + etc...modern browsers */ 
+    opacity: 0;  
+    /* IE 4-9 */ 
+    filter:alpha(opacity=0);  
+    /*This works in IE 8 & 9 too*/ 
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";  
+    /*IE4-IE9*/ 
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
 </style>
 </head>
 <body>
@@ -134,6 +239,17 @@
 		</div>
 	</div>
 	
+	<!-- 上传图片表单 -->
+	<form id="uploadForm" action="">
+		<div id="uploadImage">
+			<img id="cropimg" alt="" src="images/test.jpg">
+			<a href="javascript:;" class="addImage">
+				<span>上传图片</span>
+				<input id="imgFile" type="file" name="imgFile">
+			</a>
+		</div>
+	</form>
+	
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.Jcrop.js"></script>
@@ -142,10 +258,11 @@
 	var height;// 裁剪框的高度
 	var x;// 相对于裁剪图片x左边
 	var y;// 相对于裁剪图片y左边
+	var jcrop_api;
 	// 实现裁剪
 	jQuery(function($) {
 		// 创建变量(在这个生命周期)的API和图像大小
-		var jcrop_api, boundx, boundy,
+		var jcrop_api = null, boundx, boundy,
 		
 		// 获取预览窗格相关信息
 		$preview = $('#preview-pane'), 
@@ -190,6 +307,27 @@
 		    width = c.w;
 		    height = c.h;
 		};
+		
+		<%--上传图片并预览--%>
+		$('#imgFile').change(function(event) {
+			// 根据这个 <input> 获取文件的 HTML5 js对象
+			var files = event.target.files, file;
+			if (files && files.length > 0) {
+				// 获取目前上传的文件
+				file = files[0];
+				// 获取window的 URL工具
+				var URL = window.URL || window.webkitURL;
+				// 通过 file生成目标 url
+				var imgURL = URL.createObjectURL(file);
+				// 用这个URL产生一个 <img> 将其显示出来
+				if (jcrop_api) {
+					jcrop_api.setImage(imgURL);
+				}
+				
+				$('#cropimg').attr('src', imgURL);
+				$('.jcrop-preview').attr('src', imgURL);
+			}
+		});
 	});
 
 	<%--保存裁剪之后的图片--%>
