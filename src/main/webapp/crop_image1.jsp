@@ -132,8 +132,7 @@
 	background-color: #DEDEDE;
 }
 
-#uploadImage #imgFile,#uploadImage #imgFile::-webkit-file-upload-button
-	{
+#uploadImage #imgFile {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -142,11 +141,52 @@
 	height: 40px;
 	cursor: pointer;
 	cursor: hand;
-	opacity: 0;
-	filter: alpha(opacity : 0);
 	border: none;
 	font-size: 0;
 	padding: 0;
+	/* older safari/Chrome browsers */ 
+    -webkit-opacity: 0;  
+    /* Netscape and Older than Firefox 0.9 */ 
+    -moz-opacity: 0;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/ 
+    -khtml-opacity: 0;  
+    /* IE9 + etc...modern browsers */ 
+    opacity: 0;  
+    /* IE 4-9 */ 
+    filter:alpha(opacity=0);  
+    /*This works in IE 8 & 9 too*/ 
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";  
+    /*IE4-IE9*/ 
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+
+}
+
+#uploadImage #imgFile::-webkit-file-upload-button {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 140px;
+	height: 40px;
+	cursor: pointer;
+	cursor: hand;
+	border: none;
+	font-size: 0;
+	padding: 0;
+	/* older safari/Chrome browsers */ 
+    -webkit-opacity: 0;  
+    /* Netscape and Older than Firefox 0.9 */ 
+    -moz-opacity: 0;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/ 
+    -khtml-opacity: 0;  
+    /* IE9 + etc...modern browsers */ 
+    opacity: 0;  
+    /* IE 4-9 */ 
+    filter:alpha(opacity=0);  
+    /*This works in IE 8 & 9 too*/ 
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";  
+    /*IE4-IE9*/ 
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 }
 </style>
 </head>
