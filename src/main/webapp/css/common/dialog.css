@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+#dialog_mask {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: black;
+	opacity: 0.75;
+	filter: alpha(opacity = 75);
+	height: 1000px;
+	width: 100%;
+	z-index: 1000;
+	display: none;
+}
+
+#dialog_content {
+	position: fixed;
+	left: 30%;
+	top: 30%;
+	z-index: 1001;
+	background: white;
+	border-radius: 4px;
+	padding: 20px 30px;
+	min-width: 200px;
+	display: none;
+	font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+}
+
+#dialog_content input,#dialog_content textarea {
+	font-size: 13px;
+	font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+	outline: none;
+}
+
+#dialog_content .btn_ensure {
+	background-color: #40aff2;
+	border-radius: 3px;
+	color: white;
+	border: none;
+	font-size: 14px;
+	padding: 7px 15px;
+	cursor: pointer;
+}
+
+#dialog_content .btn_ensure:HOVER {
+	background-color: #408ff2;
+}

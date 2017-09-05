@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<!-- SSM三大框架 
+		Servlet3.1 支持JSP EL表达式 
+		MyBatis3 
+		Spring4 
+		Spring MVC -->
+	<display-name>ZImageOper</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 配置DispatcherServlet -->
+	<servlet>
+		<servlet-name>ZImageOper-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置Spring MVC需要加载的配置文件 spring-dao.xml spring-service.xml spring-web.xml 
+			myBaitis->Spring->Spring MVC -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-*.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ZImageOper-dispatcher</servlet-name>
+		<!-- 默认匹配所有请求 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Encoding utf8 只能解决Form Post提交中文乱码问题 -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 设置session生命周期60分钟 -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	<!-- 设置错误信息显示 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.NullPointerException</exception-type>
+		<location>/index.jsp</location>
+	</error-page>
+</web-app>

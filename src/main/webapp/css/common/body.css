@@ -1,0 +1,86 @@
+@CHARSET "UTF-8";
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	-webkit-font-smoothing: antialiased;
+	outline: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+	height: 100%;
+}
+
+body {
+	outline: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+	height: 100%;
+	overflow-x: hidden;
+	vertical-align: baseline;
+	font-weight: normal;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica,
+		"Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+	background-color: #F6F6F6;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	color: black;
+}
+
+a:focus { /* 除掉超链接的虚线框 */
+	hide-focus: expression(this.hideFocus = true);
+	/* IE识别 */
+	outline: none; /* FF识别 */
+}
+
+a img {
+	border: none;
+}
+
+ol,ul,li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+caption,th,td {
+	text-align: left;
+	font-weight: normal;
+	vertical-align: middle;
+}
+
+input,select,textarea,button {
+	font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+}
+
+::-ms-clear,::-ms-reveal {
+	display: none;
+}
+
+q,blockquote {
+	quotes: none;
+}
+
+q:before,q:after,blockquote:before,blockquote:after {
+	content: "";
+	content: none;
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary
+	{
+	display: block;
+}
