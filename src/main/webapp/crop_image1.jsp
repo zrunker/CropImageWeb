@@ -80,6 +80,8 @@
 	width: 92%;
 	margin: 4%;
 	text-align: left;
+	min-height: 202px;
+	min-width: 372px;
 }
 
 /* 上传图片区域 */
@@ -156,7 +158,7 @@
 		</div>
 		
 		<div id="crop_image_content">
-			<img src="images/test.jpg" id="target" alt="待裁剪图片" />
+			<img src="" id="target" alt="待裁剪图片" />
 		</div>
 	
 		<div id="crop_image_bottom">
@@ -166,18 +168,23 @@
 	</div>
 	
 	<!-- 上传图片表单 -->
-	<form id="uploadForm" action="">
+	<form id="uploadForm" action="<%=basePath%>web/image/upload" method="post" enctype="multipart/form-data">
 		<div id="uploadImage">
-			<img id="cropimg" alt="" src="images/test.jpg">
+			<img id="cropimg" alt="" src="">
 			<a href="javascript:;" class="addImage">
 				<span>上传图片</span>
-				<input id="imgFile" type="file" tabindex="3" size="3" name="imgFile">
+				<input id="imgFile" type="file" name="imgFile">
 			</a>
 		</div>
+		<input id="x" type="hidden" name="x">
+		<input id="y" type="hidden" name="y">
+		<input id="width" type="hidden" name="width">
+		<input id="height" type="hidden" name="height">
 	</form>
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
 <script type="text/javascript">
 	var width;// 裁剪框的宽度
 	var height;// // 裁剪框的高度
@@ -201,7 +208,7 @@
 					$('#cropimg').attr('src', e.target.result);
 					
 					api = $.Jcrop('#target', {
-						setSelect : [ 50, 50, 200, 200 ],
+						setSelect : [ 20, 20, 150, 150 ],
 						aspectRatio : 1,
 						onSelect : updateCoords
 					});
@@ -216,6 +223,11 @@
 					height = obj.h;
 					x = obj.x;
 					y = obj.y;
+					
+					$("#x").val(obj.x);
+	                $("#y").val(obj.y);
+	                $("#width").val(obj.w);
+	                $("#height").val(obj.h);
 				};
 			}
 		});
@@ -228,8 +240,54 @@
 		alert(height);
 		alert(x);
 		alert(y);
+	
+		<%-- // 直接执行表单提交
+		$('#uploadForm').submit();  --%>
 		
-		// Ajax提交
+		<%-- // ajaxFileUpload提交
+		$.ajaxFileUpload({
+			url : '<%=basePath%>web/image/upload', // 用于文件上传的服务器端请求地址
+			data : {
+                x : x,
+                y : y,
+                width : width,
+                height : height
+            },
+			secureuri : false, // 是否需要安全协议，一般设置为false
+			fileElementId : 'imgFile', // 文件上传域的ID
+			dataType : 'json', // 返回值类型 一般设置为json
+			success : function(data, status) {// 服务器成功响应处理函数
+				
+			},
+			error : function(data, status, e) {// 服务器响应失败处理函数
+				
+			}
+		});  --%>
+		
+		// Ajax Post提交
+		var form = new FormData(document.getElementById("uploadForm"));  
+		$.ajax({
+			url : "<%=basePath%>web/image/upload",  
+			type : "post",  
+			data : form,  
+			cache : false,  
+			processData : false,  
+			contentType : false,  
+			success : function(result) {  
+				if (result) {
+					if (result.resultCode == 0) {
+						$('#cropimg').attr('src', result.data);
+					} else {
+						alert(result.resultMsg);  
+					}
+				} else {
+
+				}
+			},  
+			error : function(e) {  
+				alert("网络错误，请重试！！");  
+			}
+		});
 		
 	};
 </script>

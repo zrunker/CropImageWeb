@@ -286,7 +286,7 @@
 			<img id="cropimg4" alt="" src="images/test.jpg">
 			<a href="javascript:;" class="addImage">
 				<span>上传图片</span>
-				<input id="imgFile" type="file" tabindex="3" size="3" name="imgFile">
+				<input id="imgFile" type="file" name="imgFile">
 			</a>
 		</div>
 	</form>
@@ -335,8 +335,8 @@
 		alert(x);
 		alert(y);
 		
-		// Ajax提交
-		
+		// AjaxFileUpload提交
+		// jQuery提交表单
 	};
 </script>
 </html>

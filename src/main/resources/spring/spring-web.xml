@@ -35,6 +35,13 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<!-- 200*1024*1024即200M resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="209715200"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="resolveLazily" value="true"/>
+	</bean>
+	
 	<!-- 4:扫描web相关的bean -->
 	<context:component-scan base-package="cc.zimageoper.controller" />
 	
