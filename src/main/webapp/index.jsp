@@ -26,7 +26,7 @@
 	width: 55%;
 	background-color: #333;
 	user-select: none;
-	margin: 5% 20%;
+	margin: 3% 20%;
 	border: 1px solid #DEDEDE;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -332,9 +332,9 @@
 	</form>
 </body>
 
-<script type="text/javascript" src="js/clip-image.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="js/clip-image.js"></script>
 <script type="text/javascript">
  	$(function() {
  		<%--上传图片并预览--%>
@@ -375,8 +375,21 @@
 		alert(x);
 		alert(y);
 		
-		// AjaxFileUpload提交
-		// jQuery提交表单
+		// AjaxFileUpload提交 或者 jQuery提交表单
+	};
+	
+	<%--判断是否为图片文件--%>
+	function isimg(src) {
+		var ext = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+		var s = src.toLowerCase();
+		var bool = false;
+		for (var i = 0; i < ext.length; i++) {
+			if (s.indexOf(ext[i]) > 0) {
+				bool = true;
+				break;
+			}
+		}
+		return bool;
 	};
 </script>
 </html>
